@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Art jump module functions.
+ * Article jump module functions.
  */
 
 /**
@@ -21,22 +21,50 @@ function artjump_menu() {
   );
   return $items;
 }
+
 /**
  * Implements hook_init().
+ *
+ * Passes drupal variables to javascript files and also adds the javascipt
+ * files.
  */
 function artjump_init() {
-  if ($aas = variable_get("artjump_article_selector")) {
-    // Pass variable in to javascript as Drupal.settings.artjump.my_selector.
-    drupal_add_js(array('artjump' => array('my_selector' => $aas)), 'setting');
-  }
-  if ($scroll_speed = variable_get("artjump_scroll_speed")) {
-    drupal_add_js(array('artjump' => array('scroll_speed' => $scroll_speed)), 'setting');
-  }
+  _artjump_pass_variables();
+
   if ($path = libraries_get_path("mousetrap")) {
     drupal_add_js($path . '/mousetrap.min.js');
   }
   else {
     drupal_add_js(drupal_get_path('module', 'artjump') . '/mousetrap.min.js');
   }
+  // Add artjump.js after adding mousetrap.min.js.
   drupal_add_js(drupal_get_path('module', 'artjump') . '/artjump.js');
+}
+
+/**
+ * Implements hook_permission().
+ */
+function artjump_permission() {
+  return array(
+    'administer artjump' => array(
+      'description' => t('Allows administrators to configure scroll speed and
+jQuery selectors.'),
+      'title' => t('Administer Article Jump'),
+      'restrict access' => TRUE,
+    ),
+  );
+}
+
+/**
+ * Passes drupal variables to javascript.
+ */
+function _artjump_pass_variables() {
+  // Pass variable in to javascript as Drupal.settings.artjump.my_selector.
+  if ($aas = variable_get("artjump_article_selector")) {
+    drupal_add_js(array('artjump' => array('my_selector' => $aas)), 'setting');
+  }
+  // Pass variable in to javascript as Drupal.settings.artjump.scroll_speed.
+  if ($scroll_speed = variable_get("artjump_scroll_speed")) {
+    drupal_add_js(array('artjump' => array('scroll_speed' => $scroll_speed)), 'setting');
+  }
 }
