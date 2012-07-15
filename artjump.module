@@ -23,7 +23,7 @@ function artjump_menu() {
 function artjump_init() {
   // Since this file should only be loaded on the front page, it cannot be
   // declared in the info file.
-  if (drupal_is_front_page()) {
+  //if (drupal_is_front_page()) {
     if($aas = variable_get("artjump_article_selector")) {
       // pass variable in as Drupal.settings.artjump.my_selector
       drupal_add_js(array('artjump' => array('my_selector' => $aas)), 'setting');
@@ -34,7 +34,6 @@ function artjump_init() {
       drupal_add_js(drupal_get_path('module', 'artjump') . '/mousetrap.min.js');
     }
     drupal_add_js(drupal_get_path('module', 'artjump') . '/artjump.js');
-
-  }
+  //}
 }
 

@@ -15,7 +15,7 @@ function artjump_admin_settings() {
   $form['display']['artjump_article_selector'] = array(
     '#type' => 'textfield',
     '#title' => t('Article Jump jQuery Selector'),
-    '#default_value' => variable_get('artjump_article_selector', ".content article"),
+    '#default_value' => variable_get('artjump_article_selector', ".content article, .content node-teaser"),
   );
 
   $form['display']['artjump_pages'] = array(
@@ -23,7 +23,6 @@ function artjump_admin_settings() {
     '#title' => t('Pages to Use Article Jump on:'),
     '#default_value' => variable_get('artjump_pages', "<front>"),
   );
-
 
   return system_settings_form($form);
 }

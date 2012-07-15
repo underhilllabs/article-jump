@@ -1,6 +1,7 @@
+(function() {
 // define an array of articles and the current article index
 jQuery(function() {
-    my_select = Drupal.settings.artjump.my_selector || ".content article";
+    my_select = Drupal.settings.artjump.my_selector || ".content article, .content node-teaser";
     arts = jQuery(my_select);
     idx = 0;
 
@@ -10,6 +11,7 @@ jQuery(function() {
 Mousetrap.bind('n', function() {
     idx++;
     if(idx == arts.length) {
+        //window.location=jQuery(".pager-next > a")[0].href;
         idx=0;
         // or if h
         // or idx = idx-1
@@ -30,6 +32,4 @@ Mousetrap.bind('p', function() {
         scrollTop:(jQuery(arts[idx]).offset().top - 100)
     }, 500);
 });
-
-
-
+}());
