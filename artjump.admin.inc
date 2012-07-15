@@ -24,10 +24,10 @@ function artjump_admin_settings() {
 
   // The Scrolling Speed.
   $form['display']['artjump_scroll_speed'] = array(
-   '#type' => 'textfield',
-   '#title' => t('Scroll Speed in Milliseconds'),
-   '#description' => t("How many milliseconds to scroll to the next article."),
-   '#default_value' => variable_get('artjump_scroll_speed', '500'),
+    '#type' => 'textfield',
+    '#title' => t('Scroll Speed in Milliseconds'),
+    '#description' => t("How many milliseconds to scroll to the next article."),
+    '#default_value' => variable_get('artjump_scroll_speed', '500'),
   );
 
   return system_settings_form($form);
