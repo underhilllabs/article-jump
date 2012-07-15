@@ -1,3 +1,8 @@
+/**
+ * @file
+ * Attaches behaviors for the Article Jump module.
+ */
+
 Drupal.behaviors.artjump = {
     attach: function(context, settings) {
       my_select = Drupal.settings.artjump.my_selector;
