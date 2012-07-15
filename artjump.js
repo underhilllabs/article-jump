@@ -1,8 +1,7 @@
 // define an array of articles and the current article index
 jQuery(function() {
     my_select = Drupal.settings.artjump.my_selector || ".content article";
-    my_select = Drupal.settings.artjump.my_selector;
-    arts = jQuery(".content article");
+    arts = jQuery(my_select);
     idx = 0;
 
 });
