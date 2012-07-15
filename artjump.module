@@ -5,7 +5,7 @@
  */
 
 /**
- * Implements hook_menu()
+ * Implements hook_menu().
  */
 function artjump_menu() {
   $items = array();
@@ -22,21 +22,21 @@ function artjump_menu() {
   return $items;
 }
 /**
- * Implements hook_init()
+ * Implements hook_init().
  */
 function artjump_init() {
-  if($aas = variable_get("artjump_article_selector")) {
+  if ($aas = variable_get("artjump_article_selector")) {
     // Pass variable in to javascript as Drupal.settings.artjump.my_selector.
     drupal_add_js(array('artjump' => array('my_selector' => $aas)), 'setting');
   }
-  if($scroll_speed = variable_get("artjump_scroll_speed")) {
+  if ($scroll_speed = variable_get("artjump_scroll_speed")) {
     drupal_add_js(array('artjump' => array('scroll_speed' => $scroll_speed)), 'setting');
   }
-  if($path = libraries_get_path("mousetrap")) {
+  if ($path = libraries_get_path("mousetrap")) {
     drupal_add_js($path . '/mousetrap.min.js');
-  } else {
+  }
+  else {
     drupal_add_js(drupal_get_path('module', 'artjump') . '/mousetrap.min.js');
   }
   drupal_add_js(drupal_get_path('module', 'artjump') . '/artjump.js');
 }
-
