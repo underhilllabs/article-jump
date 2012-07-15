@@ -1,0 +1,6 @@
+name = Article Jump
+core = 7.x
+description = Enable jumping from article to article with hotkey
+
+dependencies[] = libraries
+configure = admin/config/user-interface/artjump
