@@ -4,6 +4,9 @@
  * Art Jump module settings UI.
  */
 
+/**
+ * Creates module configuration form.
+ */
 function artjump_admin_settings() {
   $form = array();
   $form['display'] = array(
@@ -11,17 +14,20 @@ function artjump_admin_settings() {
     '#title' => t('jQuery Wrapper Settings'),
   );
 
-  // the artjump jquery selector, ie $('.content article')
+  // The jquery selector, ie $('.content article').
   $form['display']['artjump_article_selector'] = array(
     '#type' => 'textfield',
     '#title' => t('Article Jump jQuery Selector'),
+    '#description' => t("The jQuery Selectors to use. Separate selectors with commas. Do not include quotes."),
     '#default_value' => variable_get('artjump_article_selector', ".content article, .content node-teaser"),
   );
 
-  $form['display']['artjump_pages'] = array(
-    '#type' => 'textarea',
-    '#title' => t('Pages to Use Article Jump on:'),
-    '#default_value' => variable_get('artjump_pages', "<front>"),
+  // The Scrolling Speed.
+  $form['display']['artjump_scroll_speed'] = array(
+   '#type' => 'textfield',
+   '#title' => t('Scroll Speed in Milliseconds'),
+   '#description' => t("How many milliseconds to scroll to the next article."),
+   '#default_value' => variable_get('artjump_scroll_speed', '500'),
   );
 
   return system_settings_form($form);

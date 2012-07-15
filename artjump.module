@@ -1,13 +1,17 @@
 <?php
+/**
+ * @file
+ * Art jump module functions.
+ */
 
 /**
  * Implements hook_menu()
  */
 function artjump_menu() {
   $items = array();
-  // admin page
+  // The configuration page.
   $items['admin/config/user-interface/artjump'] = array(
-    'title' => 'Art Jump Configuration',
+    'title' => 'Article Jump Configuration',
     'description' => 'Configure which elements are used as jump anchors.',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('artjump_admin_settings'),
@@ -21,19 +25,18 @@ function artjump_menu() {
  * Implements hook_init()
  */
 function artjump_init() {
-  // Since this file should only be loaded on the front page, it cannot be
-  // declared in the info file.
-  //if (drupal_is_front_page()) {
-    if($aas = variable_get("artjump_article_selector")) {
-      // pass variable in as Drupal.settings.artjump.my_selector
-      drupal_add_js(array('artjump' => array('my_selector' => $aas)), 'setting');
-    }
-    if($path = libraries_get_path("mousetrap")) {
-      drupal_add_js($path . '/mousetrap.min.js');
-    } else {
-      drupal_add_js(drupal_get_path('module', 'artjump') . '/mousetrap.min.js');
-    }
-    drupal_add_js(drupal_get_path('module', 'artjump') . '/artjump.js');
-  //}
+  if($aas = variable_get("artjump_article_selector")) {
+    // Pass variable in to javascript as Drupal.settings.artjump.my_selector.
+    drupal_add_js(array('artjump' => array('my_selector' => $aas)), 'setting');
+  }
+  if($scroll_speed = variable_get("artjump_scroll_speed")) {
+    drupal_add_js(array('artjump' => array('scroll_speed' => $scroll_speed)), 'setting');
+  }
+  if($path = libraries_get_path("mousetrap")) {
+    drupal_add_js($path . '/mousetrap.min.js');
+  } else {
+    drupal_add_js(drupal_get_path('module', 'artjump') . '/mousetrap.min.js');
+  }
+  drupal_add_js(drupal_get_path('module', 'artjump') . '/artjump.js');
 }
 
