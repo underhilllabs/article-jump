@@ -1,0 +1,23 @@
+<?php
+/**
+ * @file
+ * Requirements, install, and uninstall functions for article_jump module.
+ */
+
+/**
+ * Implements hook_install
+ */
+function article_jump_install() {
+  // Add our module's variable to the variables table.
+  variable_set('article_jump_scroll_speed', 500);
+  variable_set('article_jump_article_selector', '.content article, .content .node-teaser');
+}
+
+/**
+ * Implements hook_uninstall
+ */
+function article_jump_uninstall() {
+  // Delete our module's variable from the variables table.
+  variable_del('article_jump_scroll_speed');
+  variable_del('article_jump_article_selector');
+}

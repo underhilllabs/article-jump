@@ -3,10 +3,10 @@
  * Attaches behaviors for the Article Jump module.
  */
 
-Drupal.behaviors.artjump = {
+Drupal.behaviors.article_jump = {
     attach: function(context, settings) {
-      my_select = Drupal.settings.artjump.my_selector;
-      my_speed = Drupal.settings.artjump.scroll_speed;
+      my_select = Drupal.settings.article_jump.my_selector;
+      my_speed = Drupal.settings.article_jump.scroll_speed;
       arts = jQuery(my_select);
       idx = -1;
 

@@ -1,0 +1,70 @@
+<?php
+/**
+ * @file
+ * Article jump module functions.
+ */
+
+/**
+ * Implements hook_menu().
+ */
+function article_jump_menu() {
+  $items = array();
+  // The configuration page.
+  $items['admin/config/user-interface/article_jump'] = array(
+    'title' => 'Article Jump Configuration',
+    'description' => 'Configure which elements are used as jump anchors.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('article_jump_admin_settings'),
+    'file' => 'article_jump.admin.inc',
+    'access arguments' => array('administer site configuration'),
+    'weight' => 0,
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_init().
+ *
+ * Passes drupal variables to javascript files and also adds the javascipt
+ * files.
+ */
+function article_jump_init() {
+  _article_jump_pass_variables();
+
+  if ($path = libraries_get_path("mousetrap")) {
+    drupal_add_js($path . '/mousetrap.min.js');
+  }
+  else {
+    drupal_add_js(drupal_get_path('module', 'article_jump') . '/mousetrap.min.js');
+  }
+  // Add article_jump.js after adding mousetrap.min.js.
+  drupal_add_js(drupal_get_path('module', 'article_jump') . '/article_jump.js');
+}
+
+/**
+ * Implements hook_permission().
+ */
+function article_jump_permission() {
+  return array(
+    'administer article_jump' => array(
+      'description' => t('Allows administrators to configure scroll speed and
+jQuery selectors.'),
+      'title' => t('Administer Article Jump'),
+      'restrict access' => TRUE,
+    ),
+  );
+}
+
+/**
+ * Passes drupal variables to javascript.
+ */
+function _article_jump_pass_variables() {
+  // Pass variable in to javascript as Drupal.settings.article_jump.my_selector.
+  if ($aas = variable_get("article_jump_article_selector")) {
+    drupal_add_js(array('article_jump' => array('my_selector' => $aas)), 'setting');
+  }
+  // Pass variable in to javascript as Drupal.settings.article_jump.scroll_speed.
+  if ($scroll_speed = variable_get("article_jump_scroll_speed")) {
+    drupal_add_js(array('article_jump' => array('scroll_speed' => $scroll_speed)), 'setting');
+  }
+}
